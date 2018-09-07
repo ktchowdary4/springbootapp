@@ -1,21 +1,22 @@
 version: '2'
 
-services: 
-  mysql:
+services:
+  easy-notes-mysql:
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=welcome
       - MYSQL_DATABASE=notes_app
       - MYSQL_PASSWORD=root
+      - MYSQL_USER=root
   easy-notes:
     image: easy-notes
     depends_on:
-      - mysql
+      - easy-notes-mysql
     ports:
       - 8080:8080
     environment:
-      - DATABASE_HOST=mysql
+      - DATABASE_HOST=easy-notes-mysql
       - DATABASE_USER=root
       - DATABASE_PASSWORD=welcome
-      - DATABASE_NAME=notes_app  
+      - DATABASE_NAME=notes_app
       - DATABASE_PORT=3306
